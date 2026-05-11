@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#2c3e50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Journal">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!-- Empêcher l'indexation par les moteurs de recherche -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+
+<title>Journal</title>
+
+<!-- Icône SVG intégrée (livre ouvert sobre, ton crème/bordeaux) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23faf8f4'/%3E%3Cpath d='M20 25 L20 75 L48 70 L48 30 Z' fill='%238b7355' opacity='0.9'/%3E%3Cpath d='M80 25 L80 75 L52 70 L52 30 Z' fill='%238b7355' opacity='0.9'/%3E%3Cpath d='M20 25 L48 30 L52 30 L80 25' stroke='%232c3e50' stroke-width='2' fill='none'/%3E%3Cline x1='28' y1='42' x2='42' y2='40' stroke='%23faf8f4' stroke-width='1.5'/%3E%3Cline x1='28' y1='50' x2='42' y2='48' stroke='%23faf8f4' stroke-width='1.5'/%3E%3Cline x1='28' y1='58' x2='42' y2='56' stroke='%23faf8f4' stroke-width='1.5'/%3E%3Cline x1='58' y1='40' x2='72' y2='42' stroke='%23faf8f4' stroke-width='1.5'/%3E%3Cline x1='58' y1='48' x2='72' y2='50' stroke='%23faf8f4' stroke-width='1.5'/%3E%3Cline x1='58' y1='56' x2='72' y2='58' stroke='%23faf8f4' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23faf8f4'/%3E%3Cpath d='M20 25 L20 75 L48 70 L48 30 Z' fill='%238b7355'/%3E%3Cpath d='M80 25 L80 75 L52 70 L52 30 Z' fill='%238b7355'/%3E%3Cpath d='M20 25 L48 30 L52 30 L80 25' stroke='%232c3e50' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+
+<!-- Manifest PWA intégré en data URL -->
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Journal%22%2C%22short_name%22%3A%22Journal%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23faf8f4%22%2C%22theme_color%22%3A%22%232c3e50%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520100%2520100%2527%253E%253Crect%2520width%253D%2527100%2527%2520height%253D%2527100%2527%2520rx%253D%252716%2527%2520fill%253D%2527%2523faf8f4%2527%252F%253E%253Cpath%2520d%253D%2527M20%252025%2520L20%252075%2520L48%252070%2520L48%252030%2520Z%2527%2520fill%253D%2527%25238b7355%2527%252F%253E%253Cpath%2520d%253D%2527M80%252025%2520L80%252075%2520L52%252070%2520L52%252030%2520Z%2527%2520fill%253D%2527%25238b7355%2527%252F%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%22%7D%5D%7D">
+<style>
+:root{--bg:#faf8f4;--bg-card:#fff;--ink:#2c3e50;--ink-soft:#5a6c7d;--ink-mute:#8a98a5;--line:#e8e3db;--accent:#8b7355;--accent-soft:#d4c5a9;--good:#6b8e6b;--warn:#b8860b;--alert:#a0522d;--shadow:0 1px 3px rgba(44,62,80,.06),0 1px 2px rgba(44,62,80,.04);--shadow-lift:0 4px 12px rgba(44,62,80,.08)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--ink);font-family:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;font-size:16px;line-height:1.5;min-height:100vh;overscroll-behavior:none}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.app{max-width:600px;margin:0 auto;padding:16px 16px 100px}
+header{display:flex;justify-content:space-between;align-items:baseline;padding:12px 4px 24px;border-bottom:1px solid var(--line);margin-bottom:20px}
+header .title{font-size:22px;font-weight:400;letter-spacing:.5px;font-style:italic}
+header .date{font-size:13px;color:var(--ink-mute);font-variant:small-caps;letter-spacing:1px}
+.tabs{display:flex;margin-bottom:20px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;min-width:max-content;padding:10px 14px;font-family:inherit;font-size:13px;background:none;border:none;color:var(--ink-mute);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;font-variant:small-caps;letter-spacing:1.2px;white-space:nowrap}
+.tab.active{color:var(--ink);border-bottom-color:var(--accent)}
+.panel{display:none;animation:fade .3s}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--bg-card);border:1px solid var(--line);border-radius:4px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card-title{font-size:11px;font-variant:small-caps;letter-spacing:1.5px;color:var(--ink-mute);margin-bottom:12px;font-weight:600}
+.quick-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.btn{font-family:inherit;font-size:14px;padding:14px 12px;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;color:var(--ink);cursor:pointer;transition:all .15s;text-align:center;font-variant:small-caps;letter-spacing:1px}
+.btn:active{transform:scale(.98)}
+.btn:hover{border-color:var(--accent);background:#fdfbf7}
+.btn-primary{background:var(--ink);color:var(--bg-card);border-color:var(--ink)}
+.btn-primary:hover{background:var(--accent);border-color:var(--accent)}
+.btn-warn{background:#fef9e7;border-color:var(--warn);color:var(--warn)}
+.btn-alert{background:#fdf3ed;border-color:var(--alert);color:var(--alert)}
+.btn-full{grid-column:1/-1}
+.today-status{background:linear-gradient(135deg,#f5ede0 0%,#faf3e3 100%);border:1px solid var(--accent-soft);padding:18px 16px;border-radius:4px;margin-bottom:16px}
+.today-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px}
+.today-row+.today-row{border-top:1px dashed var(--accent-soft)}
+.today-label{color:var(--ink-soft);font-style:italic}
+.today-value{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.today-value.empty{color:var(--ink-mute);font-weight:400;font-style:italic}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11px;font-variant:small-caps;letter-spacing:1.2px;color:var(--ink-mute);margin-bottom:5px;font-weight:600}
+.field input,.field textarea,.field select{width:100%;padding:10px 12px;font-family:inherit;font-size:15px;border:1px solid var(--line);border-radius:4px;background:var(--bg-card);color:var(--ink)}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent)}
+.field textarea{resize:vertical;min-height:70px;font-family:inherit}
+.entry{padding:12px 0;border-bottom:1px solid var(--line)}
+.entry:last-child{border-bottom:none}
+.entry-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;flex-wrap:wrap;gap:6px}
+.entry-date{font-size:12px;color:var(--ink-mute);font-variant:small-caps;letter-spacing:1px}
+.entry-amount{font-weight:600;font-variant-numeric:tabular-nums}
+.entry-text{font-size:14px;color:var(--ink-soft);line-height:1.5}
+.entry-meta{font-size:12px;color:var(--ink-mute);margin-top:4px;font-style:italic}
+.entry-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;margin-right:6px;font-variant:small-caps;letter-spacing:1px;font-weight:600}
+.tag-cp{background:#e8f0e8;color:var(--good)}
+.tag-maladie{background:#fde7e7;color:#a04545}
+.tag-sansolde{background:#fef9e7;color:var(--warn)}
+.tag-anomalie{background:#fdf3ed;color:var(--alert)}
+.tag-versement{background:#e7eef5;color:#4a6c8c}
+.tag-ferie{background:#ede7f5;color:#6c4a8c}
+.entry-actions{margin-top:8px;display:flex;gap:8px}
+.btn-mini{font-size:11px;padding:4px 10px;background:none;border:1px solid var(--line);color:var(--ink-mute);cursor:pointer;border-radius:3px;font-family:inherit;font-variant:small-caps;letter-spacing:.8px}
+.btn-mini:hover{color:var(--alert);border-color:var(--alert)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--bg-card);border:1px solid var(--line);padding:14px;border-radius:4px;text-align:center}
+.stat-label{font-size:10px;font-variant:small-caps;letter-spacing:1.5px;color:var(--ink-mute);margin-bottom:4px}
+.stat-value{font-size:22px;font-weight:400;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat-sub{font-size:11px;color:var(--ink-mute);margin-top:2px;font-style:italic}
+.empty-state{text-align:center;padding:32px 16px;color:var(--ink-mute);font-style:italic;font-size:14px}
+.section-title{font-size:12px;font-variant:small-caps;letter-spacing:1.5px;color:var(--ink-soft);margin:24px 0 10px;padding-bottom:4px;border-bottom:1px solid var(--line);font-weight:600}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(44,62,80,.5);z-index:100;padding:20px;align-items:flex-end;justify-content:center}
+.modal-bg.show{display:flex;animation:fade .2s}
+.modal{background:var(--bg-card);border-radius:8px 8px 0 0;padding:20px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;box-shadow:var(--shadow-lift)}
+@media(min-width:600px){.modal-bg{align-items:center}.modal{border-radius:8px}}
+.modal-title{font-size:16px;font-style:italic;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.modal-actions{display:flex;gap:10px;margin-top:16px}
+.modal-actions .btn{flex:1}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg-card);padding:10px 20px;border-radius:4px;font-size:13px;z-index:200;opacity:0;transition:opacity .3s;font-variant:small-caps;letter-spacing:1px}
+.toast.show{opacity:1}
+.export-info{font-size:13px;color:var(--ink-soft);font-style:italic;line-height:1.6;padding:12px;background:#fdfbf7;border-left:3px solid var(--accent);border-radius:0 4px 4px 0;margin-bottom:14px}
+.alert-info{font-size:13px;color:var(--alert);line-height:1.6;padding:12px;background:#fdf3ed;border-left:3px solid var(--alert);border-radius:0 4px 4px 0;margin-bottom:14px;font-style:italic}
+.ornament{text-align:center;color:var(--accent-soft);font-size:18px;margin:20px 0;letter-spacing:8px}
+.install-hint{font-size:11px;color:var(--ink-mute);text-align:center;font-style:italic;margin-top:24px;padding:12px;border-top:1px dashed var(--line)}
+.month-filter{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.month-filter::-webkit-scrollbar{display:none}
+.month-chip{padding:6px 12px;border:1px solid var(--line);border-radius:16px;background:var(--bg-card);font-family:inherit;font-size:11px;font-variant:small-caps;letter-spacing:1px;color:var(--ink-soft);cursor:pointer;white-space:nowrap}
+.month-chip.active{background:var(--ink);color:var(--bg-card);border-color:var(--ink)}
+.bulletin-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.bulletin-row:last-child{border-bottom:none}
+.bulletin-label{color:var(--ink-soft)}
+.bulletin-value{font-weight:600;font-variant-numeric:tabular-nums}
+.bulletin-value.warn{color:var(--alert)}
+.dossier-item{padding:12px;background:var(--bg-card);border:1px solid var(--line);border-radius:4px;margin-bottom:8px}
+.dossier-item-title{font-size:14px;font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dossier-item-amount{font-variant-numeric:tabular-nums;color:var(--alert);font-size:13px;white-space:nowrap}
+.dossier-item-text{font-size:12px;color:var(--ink-soft);line-height:1.5;font-style:italic}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="title">Journal</div><div class="date" id="todayDate">—</div></header>
+<div class="tabs">
+<button class="tab active" data-panel="today">Aujourd'hui</button>
+<button class="tab" data-panel="historique">Historique</button>
+<button class="tab" data-panel="bulletins">Paie</button>
+<button class="tab" data-panel="versements">Versements</button>
+<button class="tab" data-panel="incidents">Incidents</button>
+<button class="tab" data-panel="dossier">Dossier</button>
+<button class="tab" data-panel="data">Données</button>
+</div>
+
+<div class="panel active" id="panel-today">
+<div class="today-status">
+<div class="today-row"><span class="today-label">Arrivée</span><span class="today-value empty" id="t-arrivee">—</span></div>
+<div class="today-row"><span class="today-label">Pause déjeuner</span><span class="today-value empty" id="t-pause">—</span></div>
+<div class="today-row"><span class="today-label">Départ</span><span class="today-value empty" id="t-depart">—</span></div>
+<div class="today-row"><span class="today-label">Heures travaillées</span><span class="today-value empty" id="t-total">—</span></div>
+<div class="today-row"><span class="today-label">Heures sup au-delà 7h</span><span class="today-value empty" id="t-hsup">—</span></div>
+</div>
+<div class="quick-row"><button class="btn btn-primary" onclick="pointer('arrivee')">Pointer arrivée</button><button class="btn btn-primary" onclick="pointer('depart')">Pointer départ</button></div>
+<div class="quick-row"><button class="btn" onclick="pointer('pause-debut')">Début pause</button><button class="btn" onclick="pointer('pause-fin')">Fin pause</button></div>
+<div class="quick-row"><button class="btn btn-warn btn-full" onclick="quickIncident()">+ Sollicitation pendant pause</button></div>
+<div class="quick-row"><button class="btn btn-alert btn-full" onclick="openIncidentModal()">+ Incident à documenter</button></div>
+<div class="quick-row"><button class="btn btn-full" onclick="openDayModal(null)" style="background:#fdfbf7">+ Saisir une journée passée</button></div>
+<div class="ornament">· · ·</div>
+<h3 class="section-title">7 derniers jours</h3>
+<div id="weekList"></div>
+</div>
+
+<div class="panel" id="panel-historique">
+<div class="export-info">Historique complet depuis le 03/03/2025 (entrée Starsnett Services).<br>Pré-rempli avec horaires réels (10h-19h, pause 13h-14h). Cliquez sur une journée pour la modifier.</div>
+<div class="month-filter" id="monthFilter"></div>
+<div class="stats">
+<div class="stat"><div class="stat-label">Jours travaillés</div><div class="stat-value" id="h-jours">0</div><div class="stat-sub" id="h-jours-sub">—</div></div>
+<div class="stat"><div class="stat-label">Heures totales</div><div class="stat-value" id="h-heures">0h</div><div class="stat-sub" id="h-heures-sub">—</div></div>
+<div class="stat"><div class="stat-label">Heures sup &gt;7h</div><div class="stat-value" id="h-hsup">0h</div><div class="stat-sub">non payées</div></div>
+<div class="stat"><div class="stat-label">Sollicitations</div><div class="stat-value" id="h-sollic">0</div><div class="stat-sub">pendant pauses</div></div>
+</div>
+<h3 class="section-title">Détail des journées</h3>
+<div id="historiqueList"></div>
+</div>
+
+<div class="panel" id="panel-bulletins">
+<div class="export-info">Récapitulatif des bulletins de paie reçus depuis mars 2025.<br>Les anomalies détectées sont signalées en orange.</div>
+<div id="bulletinsList"></div>
+</div>
+
+<div class="panel" id="panel-versements">
+<div class="alert-info"><strong>Important</strong> — Cette section trace les versements parallèles (Revolut, espèces) reçus en complément du salaire officiel. Ces versements ne figurent pas sur les bulletins et constituent juridiquement du <strong>travail dissimulé</strong> (art. L.8221-5 Code du travail).</div>
+<div class="card">
+<div class="card-title">Nouveau versement</div>
+<div class="field"><label>Date</label><input type="date" id="v-date"></div>
+<div class="field"><label>Montant (€)</label><input type="number" id="v-montant" step="0.01" placeholder="580.00"></div>
+<div class="field"><label>Mode</label><select id="v-mode"><option value="revolut">Virement Revolut</option><option value="especes">Espèces</option><option value="autre">Autre</option></select></div>
+<div class="field"><label>Référence / motif</label><input type="text" id="v-ref" placeholder="ex : Prime, sans motif…"></div>
+<div class="field"><label>Notes</label><textarea id="v-notes" placeholder="Contexte, témoins, lieu…"></textarea></div>
+<button class="btn btn-primary btn-full" onclick="saveVersement()">Enregistrer</button>
+</div>
+<h3 class="section-title">Historique</h3>
+<div id="versementsList"></div>
+</div>
+
+<div class="panel" id="panel-incidents">
+<div class="card">
+<div class="card-title">Documenter un incident</div>
+<div class="field"><label>Date et heure</label><input type="datetime-local" id="i-datetime"></div>
+<div class="field"><label>Catégorie</label><select id="i-categorie">
+<option value="sollicitation-pause">Sollicitation pendant pause</option>
+<option value="depassement-horaire">Dépassement horaire imposé</option>
+<option value="anomalie-paie">Anomalie de paie</option>
+<option value="propos-deplaces">Propos déplacés / pression</option>
+<option value="missions-hors-fiche">Mission hors fiche de poste</option>
+<option value="refus-formation">Refus formation / VAE</option>
+<option value="surveillance">Surveillance / caméra</option>
+<option value="autre">Autre</option>
+</select></div>
+<div class="field"><label>Description factuelle</label><textarea id="i-description" placeholder="Ce qui s'est passé, qui était présent, paroles exactes…"></textarea></div>
+<div class="field"><label>Témoins éventuels</label><input type="text" id="i-temoins" placeholder="ex : Oumar, Florent…"></div>
+<div class="field"><label>Preuves disponibles</label><input type="text" id="i-preuves" placeholder="ex : capture WhatsApp, mail…"></div>
+<button class="btn btn-primary btn-full" onclick="saveIncident()">Enregistrer</button>
+</div>
+<h3 class="section-title">Historique</h3>
+<div id="incidentsList"></div>
+</div>
+
+<div class="panel" id="panel-dossier">
+<div class="alert-info">Synthèse juridique consolidée. Tous les montants sont indicatifs et basés sur les éléments documentés. Une consultation avocat ou défenseur syndical est recommandée avant toute action.</div>
+<div class="card">
+<div class="card-title">Identité du dossier</div>
+<div class="bulletin-row"><span class="bulletin-label">Salariée</span><span class="bulletin-value">Ketty Eliane BUREL</span></div>
+<div class="bulletin-row"><span class="bulletin-label">Employeur</span><span class="bulletin-value">Starsnett Services SARL</span></div>
+<div class="bulletin-row"><span class="bulletin-label">SIRET</span><span class="bulletin-value">523 021 665 00022</span></div>
+<div class="bulletin-row"><span class="bulletin-label">Convention</span><span class="bulletin-value">Propreté (IDCC 3043)</span></div>
+<div class="bulletin-row"><span class="bulletin-label">Entrée</span><span class="bulletin-value">03/03/2025</span></div>
+<div class="bulletin-row"><span class="bulletin-label">Poste contractuel</span><span class="bulletin-value">Assistante Admin EA2</span></div>
+<div class="bulletin-row"><span class="bulletin-label">Salaire de base actuel</span><span class="bulletin-value">2 053,61 €</span></div>
+</div>
+<h3 class="section-title">Anomalies documentées</h3>
+<div id="dossierAnomalies"></div>
+<h3 class="section-title">Estimation chiffrée des préjudices</h3>
+<div id="dossierChiffrage"></div>
+</div>
+
+<div class="panel" id="panel-data">
+<div class="card">
+<div class="card-title">Sauvegarde Google Drive</div>
+<div class="export-info">Cette application stocke toutes les données <strong style="color:var(--ink);font-style:normal">localement sur votre téléphone uniquement</strong>. Aucune donnée n'est envoyée nulle part.<br><br>Exportez chaque dimanche le fichier JSON et déposez-le manuellement dans votre Google Drive personnel.</div>
+<button class="btn btn-primary btn-full" onclick="exportJSON()" style="margin-bottom:8px">Exporter sauvegarde JSON</button>
+<button class="btn btn-full" onclick="exportRapport()">Exporter rapport complet (texte)</button>
+</div>
+<div class="card">
+<div class="card-title">Restauration</div>
+<div class="field"><label>Charger une sauvegarde JSON</label><input type="file" id="importFile" accept="application/json"></div>
+<button class="btn btn-full" onclick="importJSON()">Restaurer</button>
+</div>
+<div class="card">
+<div class="card-title">Réinitialiser depuis l'origine</div>
+<div class="export-info">Recharge les bulletins, anomalies et événements connus depuis le 03/03/2025. Préserve les pointages modifiés et incidents ajoutés.</div>
+<button class="btn btn-full" onclick="reseedBase()">Recharger les données de base</button>
+</div>
+<div class="card">
+<div class="card-title">Zone sensible</div>
+<button class="btn btn-alert btn-full" onclick="resetAll()">Tout effacer</button>
+</div>
+<div class="install-hint"><strong>iPhone</strong> : Safari → Partager → Sur l'écran d'accueil<br><strong>Android</strong> : Chrome → menu ⋮ → Ajouter à l'écran d'accueil</div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-bg" id="incidentModal">
+<div class="modal">
+<div class="modal-title">Incident rapide</div>
+<div class="field"><label>Description</label><textarea id="quick-incident-desc" placeholder="Ce qui vient de se passer…"></textarea></div>
+<div class="modal-actions"><button class="btn" onclick="closeIncidentModal()">Annuler</button><button class="btn btn-primary" onclick="saveQuickIncident()">Enregistrer</button></div>
+</div>
+</div>
+
+<div class="modal-bg" id="dayModal">
+<div class="modal">
+<div class="modal-title" id="dayModalTitle">Saisir une journée</div>
+<div class="field"><label>Date</label><input type="date" id="d-date"></div>
+<div class="field"><label>Type de journée</label><select id="d-type">
+<option value="travail">Journée travaillée</option>
+<option value="cp">Congé payé</option>
+<option value="maladie">Arrêt maladie</option>
+<option value="sansolde">Congé sans solde</option>
+<option value="ferie">Jour férié</option>
+</select></div>
+<div id="d-travail-fields">
+<div class="quick-row" style="margin-bottom:10px"><div class="field" style="margin:0"><label>Arrivée</label><input type="time" id="d-arrivee"></div><div class="field" style="margin:0"><label>Départ</label><input type="time" id="d-depart"></div></div>
+<div class="quick-row" style="margin-bottom:10px"><div class="field" style="margin:0"><label>Début pause</label><input type="time" id="d-pause-debut"></div><div class="field" style="margin:0"><label>Fin pause</label><input type="time" id="d-pause-fin"></div></div>
+<div class="field"><label>Sollicitations pendant pause (heures séparées par virgules)</label><input type="text" id="d-sollicitations" placeholder="ex : 13:15, 13:40"></div>
+</div>
+<div class="field"><label>Note libre (optionnel)</label><textarea id="d-note" placeholder="Ex : journée chargée, présence Nimaga…"></textarea></div>
+<div class="modal-actions"><button class="btn" onclick="closeDayModal()">Annuler</button><button class="btn btn-alert" id="d-delete-btn" onclick="deleteDay()" style="display:none">Supprimer</button><button class="btn btn-primary" onclick="saveDay()">Enregistrer</button></div>
+<div class="export-info" style="margin-top:16px;font-size:12px" id="d-prefill-zone"><strong style="color:var(--ink);font-style:normal">Préremplissage rapide</strong><br><br><button class="btn-mini" onclick="prefillStandard()" style="font-size:12px">Horaires réels (10h-19h)</button> <button class="btn-mini" onclick="prefillContractuel()" style="font-size:12px">Horaires contrat (9h30-18h)</button></div>
+</div>
+</div>
+
+<script id="appcode">
+'use strict';
+
+// ============== DONNÉES DE RÉFÉRENCE ==============
+const BULLETINS_REELS = [
+  {mois:'2025-03',label:'Mars 2025',salaireBrut:2000,salaireBase:2000,tauxHoraire:13.1865,netImposable:1624.27,netSocial:1566.85,netPaye:1599.43,pas:8.12,navigo:40.70,mutuelle:null,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'31/03/2025',anomalies:['mutuelle-absente']},
+  {mois:'2025-04',label:'Avril 2025',salaireBrut:2000,salaireBase:2000,tauxHoraire:13.1865,netImposable:1622.23,netSocial:1533.94,netPaye:1563.28,pas:11.36,navigo:40.70,mutuelle:30,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'30/04/2025',anomalies:['duplicata']},
+  {mois:'2025-05',label:'Mai 2025',salaireBrut:2000,salaireBase:2000,tauxHoraire:13.1865,netImposable:1622.23,netSocial:1533.94,netPaye:1563.28,pas:11.36,navigo:40.70,mutuelle:30,cpAcquis:2.5,cpPris:1,cpPrisDates:['2025-05-22'],avance:0,absences:[],versement:'31/05/2025',anomalies:[]},
+  {mois:'2025-06',label:'Juin 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1586.78,pas:11.53,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'30/06/2025',anomalies:['augmentation-base']},
+  {mois:'2025-07',label:'Juillet 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1586.78,pas:11.53,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'31/07/2025',anomalies:[]},
+  {mois:'2025-08',label:'Août 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1586.78,pas:11.53,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'31/08/2025',anomalies:[]},
+  {mois:'2025-09',label:'Septembre 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1598.31,pas:0,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'30/09/2025',anomalies:[]},
+  {mois:'2025-10',label:'Octobre 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1598.31,pas:0,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:0,absences:[],versement:'31/10/2025',anomalies:[]},
+  {mois:'2025-11',label:'Novembre 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1598.31,pas:0,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:1,cpPrisDates:['2025-11-10'],avance:0,absences:[],versement:'30/11/2025',anomalies:[]},
+  {mois:'2025-12',label:'Décembre 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1348.31,pas:0,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:5,cpPrisDates:['2025-12-26','2025-12-29','2025-12-30','2025-12-31'],avance:250,absences:[],versement:'31/12/2025',anomalies:['avance-250-1']},
+  {mois:'2026-01',label:'Janvier 2026',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1349.23,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.5,cpPris:1,cpPrisDates:['2026-01-02'],avance:250,absences:[],versement:'31/01/2026',anomalies:['avance-250-2','taux-mmid-13']},
+  {mois:'2026-02',label:'Février 2026',salaireBrut:1726.23,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1399.85,netSocial:1318.95,netPaye:1110.57,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.18,cpPris:0,cpPrisDates:[],avance:250,absences:[{type:'maladie',dates:['2026-02-09','2026-02-10','2026-02-11'],retenue:304.63}],versement:'28/02/2026',anomalies:['avance-250-3','arret-maladie']},
+  {mois:'2026-03',label:'Mars 2026',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1349.23,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:250,absences:[],versement:'31/03/2026',anomalies:['avance-250-4','anniversaire-1an','prime-annuelle-non-versee']},
+  {mois:'2026-04',label:'Avril 2026',salaireBrut:1960.26,salaireBase:2053.61,tauxHoraire:13.54,netImposable:1589.99,netSocial:1503.48,netPaye:1545.10,netVerseReel:1506.10,pas:0,navigo:41.62,mutuelle:29.38,cpAcquis:2.5,cpPris:5,cpPrisDates:['2026-04-07','2026-04-08','2026-04-09','2026-04-10'],avance:0,absences:[{type:'sansolde',dates:['2026-04-24'],retenue:93.35}],versement:'30/04/2026',anomalies:['augmentation-base-2','conge-sans-solde','ecart-virement-39e']}
+];
+
+const ANOMALIES_CATALOGUE = {
+  'mutuelle-absente':{titre:'Mutuelle absente sur bulletin',impact:'Cotisation employeur 30 € non versée'},
+  'duplicata':{titre:'Bulletin marqué DUPLICATA',impact:'À éclaircir'},
+  'augmentation-base':{titre:'Augmentation conventionnelle',impact:'+1,54% sur taux horaire'},
+  'augmentation-base-2':{titre:'Augmentation conventionnelle 2026',impact:'+1,12% sur taux horaire'},
+  'avance-250-1':{titre:'Acompte 250 € (1/4)',impact:'Taux retenue >10% net (illégal art. L.3251-3)'},
+  'avance-250-2':{titre:'Acompte 250 € (2/4)',impact:'Remboursement acompte 1000 €'},
+  'avance-250-3':{titre:'Acompte 250 € (3/4)',impact:'Remboursement acompte 1000 €'},
+  'avance-250-4':{titre:'Acompte 250 € (4/4 — fin)',impact:'Acompte soldé'},
+  'taux-mmid-13':{titre:'Taux maladie passé à 13%',impact:'Sortie du seuil d\'allègement Fillon'},
+  'arret-maladie':{titre:'Arrêt maladie 9-11/02/2026',impact:'Retenue 304,63 € (méthode défavorable)'},
+  'anniversaire-1an':{titre:'1 an d\'ancienneté',impact:'Anniversaire mars 2026'},
+  'prime-annuelle-non-versee':{titre:'Prime annuelle CCN non versée',impact:'Article 3.7.1 CCN Propreté'},
+  'conge-sans-solde':{titre:'Congé sans solde 24/04/2026',impact:'Vérifier accord écrit'},
+  'ecart-virement-39e':{titre:'Écart virement 39 €',impact:'Bulletin 1 545,10 € / Versé 1 506,10 €'}
+};
+
+const EVENEMENTS_CONNUS = [
+  {datetime:'2025-03-03T10:00',categorie:'surveillance',description:'Caméra de surveillance braquée sur le poste de la comptable Florent et le mien. M. Nimaga reçoit une notification sur son téléphone à chaque passage devant la caméra. Aucune information écrite reçue lors de l\'embauche sur cette surveillance (RGPD article 13 ; article L.1222-4 Code du travail : obligation d\'information préalable). Note : cette caméra constitue paradoxalement une preuve directe des heures d\'arrivée et de départ réelles.',temoins:'Florent Franciet (comptable, également surveillé)',preuves:'Caméra visible dans le bureau ; témoignage Florent ; absence de note d\'information CNIL/RGPD'},
+  {datetime:'2026-04-24T09:00',categorie:'anomalie-paie',description:'PREMIERE OCCURRENCE — Absence du 24/04/2026 imposée comme "congé sans solde" sans accord écrit. M. Nimaga a fait retenir 93,35 € sur le bulletin d\'avril 2026 (-7h × 13,3351 €) sans qualification d\'arrêt maladie. Sanction pécuniaire déguisée illégale (art. L.1331-2 Code du travail). Modification unilatérale du contrat de travail.',temoins:'',preuves:'Bulletin avril 2026 ligne "Congé sans solde 240426 - 7,00 × 13,3351 = 93,35 €"'},
+  {datetime:'2026-05-02T13:02',categorie:'anomalie-paie',description:'Florent (comptable) confidence WhatsApp : M. Nimaga a tenté de prélever un 5ème acompte de 250 € indu (l\'acompte était soldé en mars). Florent a tenu bon, a réimprimé les fiches de paie pour prouver. M. Nimaga a ensuite fait virer un montant inférieur de 39 € au net du bulletin sans justification.',temoins:'Florent Franciet (comptable Starsnett)',preuves:'Captures WhatsApp Florent du 02/05/2026 13:02-13:04 ; bulletin avril 2026 ; capture virement 1 506,10 € au lieu de 1 545,10 €'},
+  {datetime:'2026-05-06T08:30',categorie:'anomalie-paie',description:'DEUXIEME OCCURRENCE EN 2 SEMAINES — Absence ce matin pour incapacité physique (impossibilité de marcher). M. Nimaga prévenu très tôt. J\'ai proposé une solution alternative : prendre un Uber qu\'il rembourserait sur note de frais. IL A REFUSE et m\'a dit de "prendre ma journée". Puis, en arrivant au bureau, il a immédiatement demandé au comptable Florent d\'enlever ma journée et de la qualifier en congé sans solde, comme il l\'a fait le 24/04/2026. Comportement systématique et délibéré : transformer toute absence en sanction pécuniaire déguisée. Violation art. L.1331-2 (sanction pécuniaire interdite) ; modification unilatérale du contrat ; abus de pouvoir de direction.',temoins:'Florent Franciet (à qui l\'instruction a été donnée)',preuves:'SMS/WhatsApp matinal à M. Nimaga ; témoignage Florent ; bulletin de mai 2026 à venir (à archiver dès réception)'}
+];
+
+const FERIES = ['2025-04-21','2025-05-01','2025-05-08','2025-05-29','2025-06-09','2025-07-14','2025-08-15','2025-11-01','2025-11-11','2025-12-25','2025-12-26','2026-01-01','2026-04-06','2026-05-01','2026-05-08','2026-05-14','2026-05-25','2026-07-14','2026-08-15','2026-11-01','2026-11-11','2026-12-25'];
+
+const STORE_KEY = 'journal_perso_v2';
+
+// ============== STORAGE & SEEDING ==============
+function defaultData(){ return {pointages:{},versements:[],incidents:[],bulletins:[],seeded:false}; }
+
+function seedFromBase(){
+  const d = defaultData();
+  d.bulletins = JSON.parse(JSON.stringify(BULLETINS_REELS));
+  d.incidents = EVENEMENTS_CONNUS.map((e,idx)=>({id:1000000+idx,datetime:e.datetime,categorie:e.categorie,description:e.description,temoins:e.temoins,preuves:e.preuves}));
+  const datesSpec = {};
+  const datesNotes = {};
+  d.bulletins.forEach(b=>{
+    (b.cpPrisDates||[]).forEach(date=>{datesSpec[date]='cp';});
+    (b.absences||[]).forEach(abs=>{(abs.dates||[]).forEach(date=>{datesSpec[date]=abs.type;});});
+  });
+  // Absences imposées par M. Nimaga (à enrichir au fil du temps)
+  datesSpec['2026-04-24'] = 'sansolde';
+  datesNotes['2026-04-24'] = 'Absence imposée comme "congé sans solde" par M. Nimaga sans accord écrit. Retenue 93,35 € sur bulletin avril 2026. Sanction pécuniaire déguisée illégale (art. L.1331-2).';
+  datesSpec['2026-05-06'] = 'sansolde';
+  datesNotes['2026-05-06'] = 'Absence pour incapacité physique (impossibilité de marcher). M. Nimaga prévenu tôt le matin, j\'ai proposé un Uber remboursable, il a refusé et m\'a dit de prendre ma journée. Puis il a demandé à Florent de l\'enlever en sans solde — comme le 24/04. Récidive. Sanction pécuniaire déguisée illégale (art. L.1331-2).';
+
+  const start = new Date('2025-03-03');
+  const today = new Date();
+  const cur = new Date(start);
+  while(cur<=today){
+    const key = cur.toISOString().slice(0,10);
+    const dow = cur.getDay();
+    if(dow!==0 && dow!==6){
+      if(FERIES.includes(key)){
+        d.pointages[key] = {type:'ferie',sollicitations:[]};
+      } else if(datesSpec[key]){
+        d.pointages[key] = {type:datesSpec[key],sollicitations:[],note:datesNotes[key]||undefined};
+      } else {
+        d.pointages[key] = {type:'travail',arrivee:'10:00',depart:'19:00','pause-debut':'13:00','pause-fin':'14:00',sollicitations:[],note:'Pré-rempli (horaires réels par défaut)'};
+      }
+    }
+    cur.setDate(cur.getDate()+1);
+  }
+  d.seeded = true;
+  return d;
+}
+
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw){
+      const fresh = seedFromBase();
+      localStorage.setItem(STORE_KEY, JSON.stringify(fresh));
+      return fresh;
+    }
+    return JSON.parse(raw);
+  } catch(e){ return seedFromBase(); }
+}
+
+function saveData(d){ localStorage.setItem(STORE_KEY, JSON.stringify(d)); }
+
+function reseedBase(){
+  if(!confirm('Recharger les données de base ?\n\nLes pointages modifiés manuellement et les incidents ajoutés seront préservés.')) return;
+  const userPointages = {};
+  Object.entries(data.pointages).forEach(([key,p])=>{
+    if(!p.note || !p.note.includes('Pré-rempli')){ userPointages[key] = p; }
+  });
+  const userIncidents = data.incidents.filter(i=>i.id<1000000 || i.id>1999999);
+  const userVersements = data.versements;
+  const fresh = seedFromBase();
+  Object.assign(fresh.pointages, userPointages);
+  fresh.incidents = [...fresh.incidents, ...userIncidents];
+  fresh.versements = userVersements;
+  data = fresh;
+  saveData(data);
+  refresh();
+  toast('Données rechargées');
+}
+
+let data = loadData();
+
+// ============== HELPERS ==============
+function todayKey(){ return new Date().toISOString().slice(0,10); }
+function nowTime(){ return new Date().toTimeString().slice(0,5); }
+function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}); }
+function fmtDateLong(iso){ const d=new Date(iso); return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }
+function fmtMonth(iso){ const [y,m]=iso.split('-'); const months=['Janv','Févr','Mars','Avril','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc']; return months[parseInt(m,10)-1]+' '+y; }
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+function diffHours(s,e){ if(!s||!e) return 0; const [h1,m1]=s.split(':').map(Number); const [h2,m2]=e.split(':').map(Number); return ((h2*60+m2)-(h1*60+m1))/60; }
+function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function formatHeures(h){ if(h===0) return '0h'; const sign=h<0?'-':''; h=Math.abs(h); const hours=Math.floor(h); const mins=Math.round((h-hours)*60); if(mins===0) return sign+hours+'h'; return sign+hours+'h'+String(mins).padStart(2,'0'); }
+
+// ============== TABS ==============
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.panel).classList.add('active');
+    refresh();
+  });
+});
+
+// ============== POINTAGE ==============
+function pointer(type){
+  const key = todayKey();
+  if(!data.pointages[key]) data.pointages[key] = {type:'travail',sollicitations:[]};
+  data.pointages[key][type] = nowTime();
+  if(!data.pointages[key].type) data.pointages[key].type = 'travail';
+  saveData(data);
+  refresh();
+  const labels = {'arrivee':'Arrivée enregistrée','depart':'Départ enregistré','pause-debut':'Début de pause','pause-fin':'Fin de pause'};
+  toast(labels[type]);
+}
+
+function quickIncident(){
+  const key = todayKey();
+  if(!data.pointages[key]) data.pointages[key] = {type:'travail',sollicitations:[]};
+  if(!data.pointages[key].sollicitations) data.pointages[key].sollicitations = [];
+  data.pointages[key].sollicitations.push(nowTime());
+  saveData(data);
+  refresh();
+  toast('Sollicitation notée à '+nowTime());
+}
+
+// ============== MODALS ==============
+function openIncidentModal(){
+  document.getElementById('incidentModal').classList.add('show');
+  document.getElementById('quick-incident-desc').value = '';
+  setTimeout(()=>document.getElementById('quick-incident-desc').focus(),100);
+}
+function closeIncidentModal(){ document.getElementById('incidentModal').classList.remove('show'); }
+function saveQuickIncident(){
+  const desc = document.getElementById('quick-incident-desc').value.trim();
+  if(!desc){ closeIncidentModal(); return; }
+  const now = new Date();
+  data.incidents.push({id:Date.now(),datetime:now.toISOString().slice(0,16),categorie:'sollicitation-pause',description:desc,temoins:'',preuves:''});
+  saveData(data); closeIncidentModal(); refresh(); toast('Incident documenté');
+}
+
+let editingDayKey = null;
+function openDayModal(dateKey){
+  editingDayKey = dateKey;
+  const modal = document.getElementById('dayModal');
+  const title = document.getElementById('dayModalTitle');
+  const deleteBtn = document.getElementById('d-delete-btn');
+  if(dateKey && data.pointages[dateKey]){
+    title.textContent = 'Modifier le '+fmtDate(dateKey);
+    deleteBtn.style.display = 'inline-block';
+    const p = data.pointages[dateKey];
+    document.getElementById('d-date').value = dateKey;
+    document.getElementById('d-type').value = p.type || 'travail';
+    document.getElementById('d-arrivee').value = p.arrivee || '';
+    document.getElementById('d-depart').value = p.depart || '';
+    document.getElementById('d-pause-debut').value = p['pause-debut'] || '';
+    document.getElementById('d-pause-fin').value = p['pause-fin'] || '';
+    document.getElementById('d-sollicitations').value = (p.sollicitations||[]).join(', ');
+    document.getElementById('d-note').value = p.note || '';
+  } else {
+    title.textContent = 'Saisir une journée';
+    deleteBtn.style.display = 'none';
+    document.getElementById('d-date').value = todayKey();
+    document.getElementById('d-type').value = 'travail';
+    ['d-arrivee','d-depart','d-pause-debut','d-pause-fin','d-sollicitations','d-note'].forEach(id=>document.getElementById(id).value='');
+  }
+  toggleTravailFields();
+  modal.classList.add('show');
+}
+function closeDayModal(){ document.getElementById('dayModal').classList.remove('show'); editingDayKey = null; }
+function toggleTravailFields(){
+  const type = document.getElementById('d-type').value;
+  const show = type === 'travail';
+  document.getElementById('d-travail-fields').style.display = show ? 'block' : 'none';
+  document.getElementById('d-prefill-zone').style.display = show ? 'block' : 'none';
+}
+document.getElementById('d-type').addEventListener('change', toggleTravailFields);
+
+function prefillStandard(){
+  document.getElementById('d-arrivee').value = '10:00';
+  document.getElementById('d-depart').value = '19:00';
+  document.getElementById('d-pause-debut').value = '13:00';
+  document.getElementById('d-pause-fin').value = '14:00';
+}
+function prefillContractuel(){
+  document.getElementById('d-arrivee').value = '09:30';
+  document.getElementById('d-depart').value = '18:00';
+  document.getElementById('d-pause-debut').value = '13:00';
+  document.getElementById('d-pause-fin').value = '14:30';
+}
+
+function saveDay(){
+  const date = document.getElementById('d-date').value;
+  const type = document.getElementById('d-type').value;
+  if(!date){ toast('Date requise'); return; }
+  if(editingDayKey && editingDayKey!==date) delete data.pointages[editingDayKey];
+  const note = document.getElementById('d-note').value.trim();
+  if(type==='travail'){
+    const arrivee = document.getElementById('d-arrivee').value;
+    const depart = document.getElementById('d-depart').value;
+    const pd = document.getElementById('d-pause-debut').value;
+    const pf = document.getElementById('d-pause-fin').value;
+    const solRaw = document.getElementById('d-sollicitations').value.trim();
+    const sols = solRaw ? solRaw.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    data.pointages[date] = {type:'travail',arrivee:arrivee||undefined,depart:depart||undefined,'pause-debut':pd||undefined,'pause-fin':pf||undefined,sollicitations:sols,note:note||undefined};
+  } else {
+    data.pointages[date] = {type,sollicitations:[],note:note||undefined};
+  }
+  Object.keys(data.pointages[date]).forEach(k=>{ if(data.pointages[date][k]===undefined) delete data.pointages[date][k]; });
+  saveData(data); closeDayModal(); refresh();
+  toast(editingDayKey?'Journée modifiée':'Journée enregistrée');
+}
+
+function deleteDay(){
+  if(!editingDayKey) return;
+  if(!confirm('Supprimer la journée du '+fmtDate(editingDayKey)+' ?')) return;
+  delete data.pointages[editingDayKey];
+  saveData(data); closeDayModal(); refresh(); toast('Journée supprimée');
+}
+
+// ============== VERSEMENTS ==============
+function saveVersement(){
+  const date = document.getElementById('v-date').value;
+  const montant = parseFloat(document.getElementById('v-montant').value);
+  const mode = document.getElementById('v-mode').value;
+  const ref = document.getElementById('v-ref').value.trim();
+  const notes = document.getElementById('v-notes').value.trim();
+  if(!date || !montant || isNaN(montant)){ toast('Date et montant requis'); return; }
+  data.versements.push({id:Date.now(),date,montant,mode,ref,notes});
+  saveData(data);
+  document.getElementById('v-date').value = todayKey();
+  document.getElementById('v-montant').value = '';
+  document.getElementById('v-ref').value = '';
+  document.getElementById('v-notes').value = '';
+  refresh(); toast('Versement enregistré');
+}
+function deleteVersement(id){
+  if(!confirm('Supprimer ce versement ?')) return;
+  data.versements = data.versements.filter(v=>v.id!==id);
+  saveData(data); refresh(); toast('Supprimé');
+}
+
+// ============== INCIDENTS ==============
+function saveIncident(){
+  const dt = document.getElementById('i-datetime').value;
+  const cat = document.getElementById('i-categorie').value;
+  const desc = document.getElementById('i-description').value.trim();
+  const tem = document.getElementById('i-temoins').value.trim();
+  const pre = document.getElementById('i-preuves').value.trim();
+  if(!dt || !desc){ toast('Date et description requises'); return; }
+  data.incidents.push({id:Date.now(),datetime:dt,categorie:cat,description:desc,temoins:tem,preuves:pre});
+  saveData(data);
+  document.getElementById('i-datetime').value = new Date().toISOString().slice(0,16);
+  document.getElementById('i-description').value = '';
+  document.getElementById('i-temoins').value = '';
+  document.getElementById('i-preuves').value = '';
+  refresh(); toast('Incident enregistré');
+}
+function deleteIncident(id){
+  if(!confirm('Supprimer cet incident ?')) return;
+  data.incidents = data.incidents.filter(i=>i.id!==id);
+  saveData(data); refresh(); toast('Supprimé');
+}
+
+const CATEGORIES = {'sollicitation-pause':'Sollicitation pendant pause','depassement-horaire':'Dépassement horaire','anomalie-paie':'Anomalie de paie','propos-deplaces':'Propos déplacés','missions-hors-fiche':'Mission hors fiche','refus-formation':'Refus formation','surveillance':'Surveillance / caméra','autre':'Autre'};
+
+// ============== CALCULS ==============
+function calculerHeuresJournee(p){
+  if(p.type!=='travail') return 0;
+  if(!p.arrivee || !p.depart) return 0;
+  let total = diffHours(p.arrivee, p.depart);
+  if(p['pause-debut'] && p['pause-fin']) total -= diffHours(p['pause-debut'], p['pause-fin']);
+  return total;
+}
+
+function calculerStatsMois(monthKey){
+  let jours=0, heures=0, hsup=0, sollic=0;
+  Object.entries(data.pointages).forEach(([key,p])=>{
+    if(monthKey && !key.startsWith(monthKey)) return;
+    if(p.type==='travail'){
+      const h = calculerHeuresJournee(p);
+      if(h>0){ jours++; heures+=h; if(h>7) hsup+=(h-7); }
+    }
+    sollic += (p.sollicitations||[]).length;
+  });
+  return {jours,heures,hsup,sollic};
+}
+
+function calculerCpPris(){ let n=0; Object.values(data.pointages).forEach(p=>{if(p.type==='cp')n++}); return n; }
+function calculerJoursMaladie(){ let n=0; Object.values(data.pointages).forEach(p=>{if(p.type==='maladie')n++}); return n; }
+function calculerJoursSansSolde(){ let n=0; Object.values(data.pointages).forEach(p=>{if(p.type==='sansolde')n++}); return n; }
+
+// ============== RENDER ==============
+function refresh(){
+  renderToday();
+  renderWeek();
+  renderHistorique();
+  renderBulletins();
+  renderVersements();
+  renderIncidents();
+  renderDossier();
+}
+
+function renderToday(){
+  document.getElementById('todayDate').textContent = fmtDateLong(todayKey());
+  const today = data.pointages[todayKey()] || {};
+  setVal('t-arrivee', today['arrivee']);
+  setVal('t-depart', today['depart']);
+  let pause='—', pauseEmpty=true;
+  if(today['pause-debut'] && today['pause-fin']){ pause=today['pause-debut']+' → '+today['pause-fin']; pauseEmpty=false; }
+  else if(today['pause-debut']){ pause=today['pause-debut']+' → ?'; pauseEmpty=false; }
+  const pauseEl = document.getElementById('t-pause');
+  pauseEl.textContent = pause;
+  pauseEl.classList.toggle('empty', pauseEmpty);
+  if(today['arrivee'] && today['depart']){
+    let total = diffHours(today['arrivee'], today['depart']);
+    if(today['pause-debut'] && today['pause-fin']) total -= diffHours(today['pause-debut'], today['pause-fin']);
+    let txt = formatHeures(total);
+    if(today.sollicitations && today.sollicitations.length) txt += ' (+'+today.sollicitations.length+' sollicit.)';
+    document.getElementById('t-total').textContent = txt;
+    document.getElementById('t-total').classList.remove('empty');
+    const hsup = total>7 ? total-7 : 0;
+    document.getElementById('t-hsup').textContent = hsup>0 ? formatHeures(hsup) : '—';
+    document.getElementById('t-hsup').classList.toggle('empty', hsup===0);
+  } else {
+    document.getElementById('t-total').textContent = '—';
+    document.getElementById('t-total').classList.add('empty');
+    document.getElementById('t-hsup').textContent = '—';
+    document.getElementById('t-hsup').classList.add('empty');
+  }
+}
+
+function setVal(id,v){
+  const el = document.getElementById(id);
+  if(v){ el.textContent=v; el.classList.remove('empty'); }
+  else { el.textContent='—'; el.classList.add('empty'); }
+}
+
+function renderDayEntry(d){
+  const p = d.p;
+  const total = calculerHeuresJournee(p);
+  const tagMap = {'cp':'<span class="entry-tag tag-cp">Congé payé</span>','maladie':'<span class="entry-tag tag-maladie">Maladie</span>','sansolde':'<span class="entry-tag tag-sansolde">Sans solde</span>','ferie':'<span class="entry-tag tag-ferie">Férié</span>'};
+  const tag = p.type!=='travail' ? (tagMap[p.type]||'') : '';
+  const sollic = (p.sollicitations||[]).length;
+  let mainText = '';
+  if(p.type==='travail'){
+    mainText = (p.arrivee||'—')+' → '+(p.depart||'—');
+    if(p['pause-debut']) mainText += ' · pause '+p['pause-debut']+'-'+(p['pause-fin']||'?');
+  } else {
+    mainText = '<em>Pas de travail</em>';
+  }
+  const hsupBadge = (total>7) ? ' <span style="color:var(--alert);font-size:11px;font-weight:600;">+'+formatHeures(total-7)+'</span>' : '';
+  return '<div class="entry" onclick="openDayModal(\''+d.key+'\')" style="cursor:pointer;">'+
+    '<div class="entry-head">'+
+      '<span class="entry-date">'+tag+fmtDate(d.key)+'</span>'+
+      '<span class="entry-amount">'+(total>0?formatHeures(total):'')+hsupBadge+'</span>'+
+    '</div>'+
+    '<div class="entry-text">'+mainText+'</div>'+
+    (sollic>0?'<div class="entry-meta">'+sollic+' sollicitation(s) pendant pause</div>':'')+
+    (p.note?'<div class="entry-meta">'+escapeHtml(p.note)+'</div>':'')+
+  '</div>';
+}
+
+function renderWeek(){
+  const list = document.getElementById('weekList');
+  const today = new Date();
+  const days = [];
+  for(let i=0;i<7;i++){
+    const d = new Date(today); d.setDate(d.getDate()-i);
+    const key = d.toISOString().slice(0,10);
+    if(data.pointages[key]) days.push({key,p:data.pointages[key]});
+  }
+  if(days.length===0){ list.innerHTML = '<div class="empty-state">Aucun pointage cette semaine.</div>'; return; }
+  list.innerHTML = days.map(d=>renderDayEntry(d)).join('');
+}
+
+let currentMonthFilter = 'all';
+function renderHistorique(){
+  const filterEl = document.getElementById('monthFilter');
+  const months = new Set();
+  Object.keys(data.pointages).forEach(k=>months.add(k.slice(0,7)));
+  const monthsList = ['all', ...Array.from(months).sort().reverse()];
+  filterEl.innerHTML = monthsList.map(m=>{
+    const label = m==='all'?'Tous':fmtMonth(m);
+    return '<button class="month-chip '+(m===currentMonthFilter?'active':'')+'" onclick="setMonthFilter(\''+m+'\')">'+label+'</button>';
+  }).join('');
+  const filterKey = currentMonthFilter==='all' ? null : currentMonthFilter;
+  const stats = calculerStatsMois(filterKey);
+  document.getElementById('h-jours').textContent = stats.jours;
+  document.getElementById('h-jours-sub').textContent = currentMonthFilter==='all'?'depuis 03/03/2025':fmtMonth(currentMonthFilter);
+  document.getElementById('h-heures').textContent = formatHeures(stats.heures);
+  document.getElementById('h-heures-sub').textContent = stats.jours>0 ? 'soit ~'+(stats.heures/stats.jours).toFixed(1)+'h/jour' : '—';
+  document.getElementById('h-hsup').textContent = formatHeures(stats.hsup);
+  document.getElementById('h-sollic').textContent = stats.sollic;
+  const list = document.getElementById('historiqueList');
+  const filteredKeys = Object.keys(data.pointages).filter(k=>!filterKey||k.startsWith(filterKey)).sort().reverse();
+  if(filteredKeys.length===0){ list.innerHTML = '<div class="empty-state">Aucune donnée pour cette période.</div>'; return; }
+  list.innerHTML = filteredKeys.map(key=>renderDayEntry({key,p:data.pointages[key]})).join('');
+}
+function setMonthFilter(m){ currentMonthFilter=m; renderHistorique(); }
+
+function renderBulletins(){
+  const list = document.getElementById('bulletinsList');
+  if(!data.bulletins || data.bulletins.length===0){ list.innerHTML = '<div class="empty-state">Aucun bulletin chargé.</div>'; return; }
+  list.innerHTML = data.bulletins.slice().reverse().map(b=>{
+    const ecart = b.netVerseReel && Math.abs(b.netVerseReel-b.netPaye)>0.01;
+    let html = '<div class="card">';
+    html += '<div class="card-title" style="display:flex;justify-content:space-between;"><span>'+b.label+'</span><span style="color:var(--accent);">Versé le '+b.versement+'</span></div>';
+    html += '<div class="bulletin-row"><span class="bulletin-label">Salaire de base</span><span class="bulletin-value">'+b.salaireBase.toFixed(2)+' € ('+b.tauxHoraire+' €/h)</span></div>';
+    html += '<div class="bulletin-row"><span class="bulletin-label">Salaire brut</span><span class="bulletin-value">'+b.salaireBrut.toFixed(2)+' €</span></div>';
+    (b.absences||[]).forEach(a=>{ html += '<div class="bulletin-row"><span class="bulletin-label">— Absence '+a.type+'</span><span class="bulletin-value warn">-'+a.retenue.toFixed(2)+' €</span></div>'; });
+    html += '<div class="bulletin-row"><span class="bulletin-label">Net imposable</span><span class="bulletin-value">'+b.netImposable.toFixed(2)+' €</span></div>';
+    html += '<div class="bulletin-row"><span class="bulletin-label">Net social</span><span class="bulletin-value">'+b.netSocial.toFixed(2)+' €</span></div>';
+    if(b.avance>0) html += '<div class="bulletin-row"><span class="bulletin-label">— Acompte retenu</span><span class="bulletin-value warn">-'+b.avance.toFixed(2)+' €</span></div>';
+    html += '<div class="bulletin-row"><span class="bulletin-label">PAS</span><span class="bulletin-value">'+(b.pas>0?'-'+b.pas.toFixed(2)+' €':'0 €')+'</span></div>';
+    html += '<div class="bulletin-row" style="border-top:1px solid var(--ink);padding-top:8px;margin-top:4px;"><span class="bulletin-label" style="font-weight:600;color:var(--ink);">Net à payer (bulletin)</span><span class="bulletin-value" style="color:var(--ink);font-size:15px;">'+b.netPaye.toFixed(2)+' €</span></div>';
+    if(ecart) html += '<div class="bulletin-row"><span class="bulletin-label" style="color:var(--alert);">⚠ Net réellement viré</span><span class="bulletin-value warn">'+b.netVerseReel.toFixed(2)+' € (écart '+(b.netVerseReel-b.netPaye).toFixed(2)+' €)</span></div>';
+    if((b.cpPrisDates||[]).length>0) html += '<div class="bulletin-row"><span class="bulletin-label">Congés pris</span><span class="bulletin-value">'+b.cpPrisDates.map(d=>fmtDate(d)).join(', ')+'</span></div>';
+    if((b.anomalies||[]).length>0){
+      html += '<div style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);">';
+      b.anomalies.forEach(a=>{
+        const ano = ANOMALIES_CATALOGUE[a];
+        if(ano) html += '<div class="entry-meta" style="color:var(--alert);margin-top:4px;">⚠ '+escapeHtml(ano.titre)+' — '+escapeHtml(ano.impact)+'</div>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }).join('');
+}
+
+function renderVersements(){
+  const list = document.getElementById('versementsList');
+  if(data.versements.length===0){
+    list.innerHTML = '<div class="empty-state">Aucun versement enregistré.<br><br>Utilisez le formulaire ci-dessus pour saisir chaque versement parallèle reçu (580 € Revolut/espèces).</div>';
+    return;
+  }
+  const sorted = [...data.versements].sort((a,b)=>b.date.localeCompare(a.date));
+  const total = data.versements.reduce((s,v)=>s+v.montant,0);
+  let html = '<div class="stat" style="margin-bottom:14px;"><div class="stat-label">Cumul versements parallèles</div><div class="stat-value">'+total.toFixed(0)+' €</div><div class="stat-sub">'+data.versements.length+' versement(s)</div></div>';
+  html += sorted.map(v=>
+    '<div class="entry">'+
+      '<div class="entry-head">'+
+        '<span class="entry-date"><span class="entry-tag tag-versement">'+v.mode+'</span>'+fmtDate(v.date)+'</span>'+
+        '<span class="entry-amount">'+v.montant.toFixed(2)+' €</span>'+
+      '</div>'+
+      (v.ref?'<div class="entry-text">Réf : '+escapeHtml(v.ref)+'</div>':'')+
+      (v.notes?'<div class="entry-meta">'+escapeHtml(v.notes)+'</div>':'')+
+      '<div class="entry-actions"><button class="btn-mini" onclick="deleteVersement('+v.id+')">Supprimer</button></div>'+
+    '</div>'
+  ).join('');
+  list.innerHTML = html;
+}
+
+function renderIncidents(){
+  const list = document.getElementById('incidentsList');
+  if(data.incidents.length===0){ list.innerHTML = '<div class="empty-state">Aucun incident documenté.</div>'; return; }
+  const sorted = [...data.incidents].sort((a,b)=>b.datetime.localeCompare(a.datetime));
+  list.innerHTML = sorted.map(i=>
+    '<div class="entry">'+
+      '<div class="entry-head">'+
+        '<span class="entry-date">'+fmtDate(i.datetime.slice(0,10))+' · '+i.datetime.slice(11,16)+'</span>'+
+        '<span class="entry-tag tag-anomalie">'+(CATEGORIES[i.categorie]||i.categorie)+'</span>'+
+      '</div>'+
+      '<div class="entry-text">'+escapeHtml(i.description)+'</div>'+
+      (i.temoins?'<div class="entry-meta">Témoins : '+escapeHtml(i.temoins)+'</div>':'')+
+      (i.preuves?'<div class="entry-meta">Preuves : '+escapeHtml(i.preuves)+'</div>':'')+
+      '<div class="entry-actions"><button class="btn-mini" onclick="deleteIncident('+i.id+')">Supprimer</button></div>'+
+    '</div>'
+  ).join('');
+}
+
+function renderDossier(){
+  const anomalies = [
+    {titre:'Mutuelle absente bulletin mars 2025',gravite:'moyenne',texte:'Cotisation mutuelle obligatoire (loi ANI 2016) absente du bulletin mars 2025. Régularisée à partir d\'avril. Manque ~30 €.',montant:30},
+    {titre:'Sous-classification EA2',gravite:'haute',texte:'Classification EA2 (employée admin basique) alors que les missions exercées (suivi contentieux 21 dossiers, prospection commerciale, contrôle qualité, coordination équipes terrain, développement de 3 applications métier) relèvent au minimum de MP1/MP2 voire TAM. Différence brute mensuelle estimée 200-500 €.',montant:4550},
+    {titre:'Heures supplémentaires non payées',gravite:'haute',texte:'Horaires contractuels 9h30-18h (35h/sem). Horaires réels 10h-19h pause 13h-14h (40h/sem). 5h sup/sem non déclarées sur 14 mois. Caméra de surveillance constitue paradoxalement preuve directe d\'arrivée/départ.',montant:4550},
+    {titre:'Versements parallèles 580 €/mois (travail dissimulé)',gravite:'haute',texte:'Accord verbal : 580 €/mois en espèces ou Revolut hors bulletin. Constitue du travail dissimulé (art. L.8221-5). Indemnité forfaitaire prud\'homale : 6 mois de salaire (art. L.8223-1).',montant:12185},
+    {titre:'Pauses déjeuner non effectives',gravite:'moyenne',texte:'Sollicitée pendant la pause par téléphone et en personne. Reste au bureau pour répondre. Au sens art. L.3121-1, ce temps est juridiquement du temps de travail effectif.',montant:0},
+    {titre:'Acompte 1000 € en 4×250 €',gravite:'faible',texte:'Acompte soldé. MAIS 250 €/mois = >15% du net, alors que art. L.3251-3 plafonne à 10% (~160 € max). Échéancier illégal en taux.',montant:0},
+    {titre:'Écart 39 € virement avril 2026',gravite:'haute',texte:'Bulletin avril 2026 : 1 545,10 € net. Virement reçu : 1 506,10 €. Écart 39 € non documenté (violation art. R.3243-1). Confidence Florent : Nimaga a hésité à prélever un 5ème acompte indu, puis a viré moins sans justification.',montant:39},
+    {titre:'Surveillance par caméra non déclarée',gravite:'moyenne',texte:'Caméra braquée sur poste de la salariée et de la comptable. Notifications sur téléphone du gérant à chaque passage. Aucune information préalable RGPD/CNIL. Violation art. L.1222-4 et RGPD art. 13. À l\'inverse, preuve directe des heures réelles.',montant:0},
+    {titre:'Lieu de travail réel ≠ contrat',gravite:'faible',texte:'Contrat : 4 rue du Sentier des Attripes, Créteil. Réel : 83 rue de Reuilly, Paris 12e. Avenant manquant.',montant:0},
+    {titre:'Prime annuelle CCN non versée',gravite:'moyenne',texte:'Article 3.7.1 CCN Propreté : prime annuelle due à 1 an d\'ancienneté (mars 2026). Aucune ligne sur bulletins mars/avril 2026.',montant:150},
+    {titre:'Sanctions pécuniaires déguisées (récidive)',gravite:'haute',texte:'M. Nimaga transforme systématiquement toute absence en "congé sans solde" sans accord écrit du salarié. 1ère occurrence : 24/04/2026 (-93,35 €). 2ème occurrence : 06/05/2026 (incapacité physique de marcher, j\'ai proposé un Uber remboursable, refus, puis qualification en sans solde via Florent). Comportement systématique et délibéré. Violation art. L.1331-2 (sanction pécuniaire interdite) ; modification unilatérale du contrat ; abus de pouvoir de direction. La répétition aggrave la qualification.',montant:200}
+  ];
+  const colors = {haute:'var(--alert)',moyenne:'var(--warn)',faible:'var(--ink-mute)','a-clarifier':'var(--warn)'};
+  document.getElementById('dossierAnomalies').innerHTML = anomalies.map(a=>
+    '<div class="dossier-item" style="border-left:3px solid '+colors[a.gravite]+';">'+
+      '<div class="dossier-item-title"><span>'+escapeHtml(a.titre)+'</span>'+(a.montant>0?'<span class="dossier-item-amount">~'+a.montant.toFixed(0)+' €</span>':'')+'</div>'+
+      '<div class="dossier-item-text">'+escapeHtml(a.texte)+'</div>'+
+    '</div>'
+  ).join('');
+
+  const stats = calculerStatsMois(null);
+  const cpPris = calculerCpPris();
+  const maladie = calculerJoursMaladie();
+  const sansolde = calculerJoursSansSolde();
+  const totalVers = data.versements.reduce((s,v)=>s+v.montant,0);
+  const tauxMoy = 13.40;
+  const tauxMaj = tauxMoy * 1.25;
+  const rappelHsup = stats.hsup * tauxMaj;
+  const indemniteTT = 2030.86 * 6;
+  const diffClassif = 250 * 14;
+  const totalPrejudice = rappelHsup + indemniteTT + diffClassif + 30 + 150 + 39;
+
+  document.getElementById('dossierChiffrage').innerHTML =
+    '<div class="card">'+
+      '<div class="card-title">Synthèse présence depuis 03/03/2025</div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Jours travaillés</span><span class="bulletin-value">'+stats.jours+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Heures totales travaillées</span><span class="bulletin-value">'+formatHeures(stats.heures)+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Heures sup (>7h/jour)</span><span class="bulletin-value warn">'+formatHeures(stats.hsup)+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Sollicitations pause</span><span class="bulletin-value">'+stats.sollic+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Congés payés pris</span><span class="bulletin-value">'+cpPris+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Jours arrêt maladie</span><span class="bulletin-value">'+maladie+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Jours sans solde</span><span class="bulletin-value">'+sansolde+'</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Versements parallèles cumulés</span><span class="bulletin-value warn">'+totalVers.toFixed(0)+' €</span></div>'+
+    '</div>'+
+    '<div class="card">'+
+      '<div class="card-title">Estimation des préjudices (indicatif)</div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Rappel heures sup +25%</span><span class="bulletin-value warn">~'+rappelHsup.toFixed(0)+' € brut</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Indemnité travail dissimulé (6 mois)</span><span class="bulletin-value warn">'+indemniteTT.toFixed(0)+' €</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Différentiel sous-classification</span><span class="bulletin-value warn">~'+diffClassif.toFixed(0)+' € brut</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Mutuelle non versée mars 2025</span><span class="bulletin-value warn">30 €</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Prime annuelle CCN</span><span class="bulletin-value warn">~150 €</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Écart virement avril 2026</span><span class="bulletin-value warn">39 €</span></div>'+
+      '<div class="bulletin-row" style="border-top:1px solid var(--ink);padding-top:8px;margin-top:4px;"><span class="bulletin-label" style="font-weight:600;color:var(--ink);">Total estimé</span><span class="bulletin-value warn" style="font-size:15px;">~'+totalPrejudice.toFixed(0)+' €</span></div>'+
+    '</div>'+
+    '<div class="export-info"><strong style="color:var(--ink);font-style:normal;">Articles juridiques mobilisables</strong><br>• L.8221-5 / L.8223-1 — Travail dissimulé et indemnité forfaitaire<br>• L.3121-1 — Définition temps de travail effectif<br>• L.3171-2 — Décompte du temps de travail (charge employeur)<br>• L.3251-3 — Plafond retenues sur salaire (10% du net)<br>• L.1222-4 — Information préalable surveillance<br>• R.3243-1 — Mentions obligatoires bulletin de paie<br>• Article 3.7.1 CCN Propreté — Prime annuelle<br>• Principe de réalité des fonctions (Cass. Soc.) — Sous-classification</div>';
+}
+
+// ============== EXPORT / IMPORT ==============
+function exportJSON(){
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'journal-'+todayKey()+'.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('Sauvegarde téléchargée');
+}
+
+function exportRapport(){
+  let txt = 'JOURNAL — DOSSIER COMPLET\n';
+  txt += 'Ketty Eliane BUREL — Starsnett Services SARL\n';
+  txt += 'Exporté le '+fmtDateLong(todayKey())+'\n';
+  txt += '='.repeat(70)+'\n\n';
+
+  const stats = calculerStatsMois(null);
+  txt += 'SYNTHESE GENERALE (depuis 03/03/2025)\n'+'-'.repeat(70)+'\n';
+  txt += 'Jours travaillés : '+stats.jours+'\n';
+  txt += 'Heures totales : '+formatHeures(stats.heures)+'\n';
+  txt += 'Heures sup (>7h/jour) : '+formatHeures(stats.hsup)+'\n';
+  txt += 'Sollicitations pause : '+stats.sollic+'\n';
+  txt += 'Congés payés pris : '+calculerCpPris()+'\n';
+  txt += 'Jours maladie : '+calculerJoursMaladie()+'\n';
+  txt += 'Jours sans solde : '+calculerJoursSansSolde()+'\n\n';
+
+  txt += 'BULLETINS DE PAIE\n'+'-'.repeat(70)+'\n';
+  data.bulletins.forEach(b=>{
+    txt += '\n'+b.label+' — versé '+b.versement+'\n';
+    txt += '  Brut '+b.salaireBrut.toFixed(2)+' € / Net imp '+b.netImposable.toFixed(2)+' € / Net payé '+b.netPaye.toFixed(2)+' €\n';
+    if(b.netVerseReel) txt += '  ⚠ Net réellement viré : '+b.netVerseReel.toFixed(2)+' € (écart '+(b.netVerseReel-b.netPaye).toFixed(2)+' €)\n';
+    if(b.cpPrisDates && b.cpPrisDates.length) txt += '  CP : '+b.cpPrisDates.join(', ')+'\n';
+    if(b.absences && b.absences.length) b.absences.forEach(a=>txt += '  Absence '+a.type+' : '+a.dates.join(', ')+' (-'+a.retenue.toFixed(2)+' €)\n');
+    if(b.avance) txt += '  Acompte : -'+b.avance.toFixed(2)+' €\n';
+    if(b.anomalies && b.anomalies.length) b.anomalies.forEach(a=>{ const ano = ANOMALIES_CATALOGUE[a]; if(ano) txt += '  ⚠ '+ano.titre+' — '+ano.impact+'\n'; });
+  });
+  txt += '\n';
+
+  txt += 'POINTAGES QUOTIDIENS\n'+'-'.repeat(70)+'\n';
+  Object.keys(data.pointages).sort().forEach(key=>{
+    const p = data.pointages[key];
+    if(p.type==='travail' && p.arrivee){
+      const total = calculerHeuresJournee(p);
+      txt += fmtDate(key)+' : '+p.arrivee+' → '+(p.depart||'?');
+      if(p['pause-debut']) txt += ' (pause '+p['pause-debut']+'-'+(p['pause-fin']||'?')+')';
+      txt += ' = '+formatHeures(total);
+      if(total>7) txt += ' [+'+formatHeures(total-7)+' hsup]';
+      if(p.sollicitations && p.sollicitations.length) txt += ' · sollicit: '+p.sollicitations.join(',');
+      txt += '\n';
+    } else if(p.type==='cp'){ txt += fmtDate(key)+' : Congé payé\n'; }
+    else if(p.type==='maladie'){ txt += fmtDate(key)+' : Arrêt maladie\n'; }
+    else if(p.type==='sansolde'){ txt += fmtDate(key)+' : Congé sans solde\n'; }
+    else if(p.type==='ferie'){ txt += fmtDate(key)+' : Férié\n'; }
+  });
+  txt += '\n';
+
+  txt += 'VERSEMENTS PARALLELES\n'+'-'.repeat(70)+'\n';
+  if(data.versements.length===0){ txt += 'Aucun versement enregistré.\n'; }
+  else {
+    const total = data.versements.reduce((s,v)=>s+v.montant,0);
+    [...data.versements].sort((a,b)=>a.date.localeCompare(b.date)).forEach(v=>{
+      txt += fmtDate(v.date)+' : '+v.montant.toFixed(2)+' € ('+v.mode+')';
+      if(v.ref) txt += ' ref: '+v.ref;
+      if(v.notes) txt += '\n  notes: '+v.notes;
+      txt += '\n';
+    });
+    txt += '\n  TOTAL : '+total.toFixed(2)+' € ('+data.versements.length+' versement(s))\n';
+  }
+  txt += '\n';
+
+  txt += 'INCIDENTS DOCUMENTES\n'+'-'.repeat(70)+'\n';
+  if(data.incidents.length===0){ txt += 'Aucun incident documenté.\n'; }
+  else {
+    [...data.incidents].sort((a,b)=>a.datetime.localeCompare(b.datetime)).forEach(i=>{
+      txt += '\n'+fmtDate(i.datetime.slice(0,10))+' '+i.datetime.slice(11,16)+' — '+(CATEGORIES[i.categorie]||i.categorie)+'\n';
+      txt += '  '+i.description+'\n';
+      if(i.temoins) txt += '  Témoins : '+i.temoins+'\n';
+      if(i.preuves) txt += '  Preuves : '+i.preuves+'\n';
+    });
+  }
+  txt += '\n'+'='.repeat(70)+'\nFin du dossier.\nDocument confidentiel — usage personnel.\n';
+
+  const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'dossier-complet-'+todayKey()+'.txt'; a.click();
+  URL.revokeObjectURL(url);
+  toast('Rapport exporté');
+}
+
+function importJSON(){
+  const file = document.getElementById('importFile').files[0];
+  if(!file){ toast('Sélectionnez un fichier'); return; }
+  if(!confirm('Cette action remplacera toutes les données actuelles. Continuer ?')) return;
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    try {
+      const imported = JSON.parse(e.target.result);
+      if(!imported.pointages || !imported.versements || !imported.incidents) throw new Error('format invalide');
+      data = imported;
+      saveData(data);
+      refresh();
+      toast('Restauration réussie');
+    } catch(err){ toast('Fichier invalide'); }
+  };
+  reader.readAsText(file);
+}
+
+function resetAll(){
+  if(!confirm('Supprimer définitivement TOUTES les données ?')) return;
+  if(!confirm('Vraiment ? Cette action est irréversible.')) return;
+  data = defaultData();
+  saveData(data);
+  refresh();
+  toast('Données effacées');
+}
+
+// ============== INIT ==============
+document.getElementById('v-date').value = todayKey();
+document.getElementById('i-datetime').value = new Date().toISOString().slice(0,16);
+refresh();
+</script>
+</body>
+</html>

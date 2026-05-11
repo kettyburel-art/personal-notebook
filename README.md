@@ -1,2 +1,3 @@
-# personal-notebook
-Personal notebook
+# Personal Notebook
+
+Private personal organizer.
