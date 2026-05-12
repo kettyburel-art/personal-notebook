@@ -293,7 +293,7 @@ const BULLETINS_REELS = [
   {mois:'2025-12',label:'Décembre 2025',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1348.31,pas:0,navigo:40.70,mutuelle:30.46,cpAcquis:2.5,cpPris:5,cpPrisDates:['2025-12-26','2025-12-29','2025-12-30','2025-12-31'],avance:250,absences:[],versement:'31/12/2025',anomalies:['avance-250-1']},
   {mois:'2026-01',label:'Janvier 2026',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1349.23,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.5,cpPris:1,cpPrisDates:['2026-01-02'],avance:250,absences:[],versement:'31/01/2026',anomalies:['avance-250-2','taux-mmid-13']},
   {mois:'2026-02',label:'Février 2026',salaireBrut:1726.23,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1399.85,netSocial:1318.95,netPaye:1110.57,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.18,cpPris:0,cpPrisDates:[],avance:250,absences:[{type:'maladie',dates:['2026-02-09','2026-02-10','2026-02-11'],retenue:304.63}],versement:'28/02/2026',anomalies:['avance-250-3','arret-maladie']},
-  {mois:'2026-03',label:'Mars 2026',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1349.23,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:250,absences:[],versement:'31/03/2026',anomalies:['avance-250-4','anniversaire-1an','prime-annuelle-non-versee']},
+  {mois:'2026-03',label:'Mars 2026',salaireBrut:2030.86,salaireBase:2030.86,tauxHoraire:13.39,netImposable:1647.26,netSocial:1557.61,netPaye:1349.23,pas:0,navigo:41.62,mutuelle:30.46,cpAcquis:2.5,cpPris:0,cpPrisDates:[],avance:250,absences:[],versement:'31/03/2026',anomalies:['avance-250-4','anniversaire-1an']},
   {mois:'2026-04',label:'Avril 2026',salaireBrut:1960.26,salaireBase:2053.61,tauxHoraire:13.54,netImposable:1589.99,netSocial:1503.48,netPaye:1545.10,netVerseReel:1506.10,pas:0,navigo:41.62,mutuelle:29.38,cpAcquis:2.5,cpPris:5,cpPrisDates:['2026-04-07','2026-04-08','2026-04-09','2026-04-10'],avance:0,absences:[{type:'sansolde',dates:['2026-04-24'],retenue:93.35}],versement:'30/04/2026',anomalies:['augmentation-base-2','conge-sans-solde','ecart-virement-39e']}
 ];
 
@@ -309,7 +309,7 @@ const ANOMALIES_CATALOGUE = {
   'taux-mmid-13':{titre:'Taux maladie passé à 13%',impact:'Sortie du seuil d\'allègement Fillon'},
   'arret-maladie':{titre:'Arrêt maladie 9-11/02/2026',impact:'Retenue 304,63 € (méthode défavorable)'},
   'anniversaire-1an':{titre:'1 an d\'ancienneté',impact:'Anniversaire mars 2026'},
-  'prime-annuelle-non-versee':{titre:'Prime annuelle CCN non versée',impact:'Article 3.7.1 CCN Propreté'},
+  'prime-annuelle-non-versee':{titre:'Prime annuelle CCN — vigilance novembre 2026',impact:'~350 € brut due en novembre 2026 (annexe I.3 CCN Propreté)'},
   'conge-sans-solde':{titre:'Congé sans solde 24/04/2026',impact:'Vérifier accord écrit'},
   'ecart-virement-39e':{titre:'Écart virement 39 €',impact:'Bulletin 1 545,10 € / Versé 1 506,10 €'}
 };
@@ -320,7 +320,11 @@ const EVENEMENTS_CONNUS = [
   {datetime:'2026-05-02T08:36',categorie:'anomalie-paie',description:'Signalement par WhatsApp de l\'écart de 39 € à M. Nimaga (bulletin 1 545,10 € / virement reçu 1 506,10 €). Échange complet 08:36-08:53. M. Nimaga reconnaît par écrit à 08:53 : "Ok ok pas de problème ont feras la rectification". ENGAGEMENT ÉCRIT — preuve solide. Au 11 mai (9 jours plus tard), AUCUNE régularisation effectuée. Engagement non tenu, à relancer.',temoins:'',preuves:'Capture WhatsApp 02/05/2026 conversation 08:36-08:53 avec M. Nimaga'},
   {datetime:'2026-05-02T13:02',categorie:'anomalie-paie',description:'Florent (comptable) confidence WhatsApp : M. Nimaga a tenté de prélever un 5ème acompte de 250 € indu (l\'acompte était soldé en mars). Florent a tenu bon, a réimprimé les fiches de paie pour prouver. M. Nimaga a ensuite fait virer un montant inférieur de 39 € au net du bulletin sans justification — c\'est ce qui explique l\'écart constaté.',temoins:'Florent Franciet (comptable Starsnett)',preuves:'Captures WhatsApp Florent du 02/05/2026 13:02-13:04 ; bulletin avril 2026 ; capture virement 1 506,10 € au lieu de 1 545,10 €'},
   {datetime:'2026-05-06T08:30',categorie:'anomalie-paie',description:'DEUXIÈME TENTATIVE DE SANCTION PÉCUNIAIRE — Absence ce matin pour incapacité physique (impossibilité de marcher). M. Nimaga prévenu très tôt. J\'ai proposé une solution alternative : prendre un Uber qu\'il rembourserait sur note de frais. IL A REFUSÉ et m\'a dit de "prendre ma journée". Puis, en arrivant au bureau, il a immédiatement demandé à Florent d\'enlever ma journée et de la qualifier en sans solde, comme le 24/04/2026. PARADE : j\'ai consulté un médecin et obtenu un arrêt du 6 au 8 mai, transmis le 8 à 17:47 — accusé de réception immédiat par M. Nimaga ("Bonjour ok bien reçu"). L\'absence est donc requalifiée en arrêt maladie justifié, M. Nimaga ne peut plus retenir un centime.',temoins:'Florent Franciet (à qui l\'instruction a été donnée)',preuves:'Capture WhatsApp 06/05/2026 (échange matinal) ; arrêt médical 6-8 mai 2026 ; capture WhatsApp 08/05/2026 17:47 accusé de réception'},
-  {datetime:'2026-05-08T17:47',categorie:'anomalie-paie',description:'Transmission de l\'arrêt médical 6-8 mai 2026 à M. Nimaga via WhatsApp. Accusé de réception immédiat : "Bonjour ok bien reçu". L\'absence des 6, 7 et 8 mai est donc juridiquement un arrêt maladie justifié, et NON un congé sans solde comme M. Nimaga souhaitait initialement. À surveiller sur le bulletin de mai 2026 : aucune retenue de type "sans solde" ne doit apparaître pour ces dates.',temoins:'',preuves:'Capture WhatsApp 08/05/2026 17:47 (envoi arrêt + accusé réception)'}
+  {datetime:'2026-05-08T17:47',categorie:'anomalie-paie',description:'Transmission de l\'arrêt médical 6-8 mai 2026 à M. Nimaga via WhatsApp. Accusé de réception immédiat : "Bonjour ok bien reçu". L\'absence des 6, 7 et 8 mai est donc juridiquement un arrêt maladie justifié, et NON un congé sans solde comme M. Nimaga souhaitait initialement. À surveiller sur le bulletin de mai 2026 : aucune retenue de type "sans solde" ne doit apparaître pour ces dates.',temoins:'',preuves:'Capture WhatsApp 08/05/2026 17:47 (envoi arrêt + accusé réception)'},
+  {datetime:'2026-05-07T10:21',categorie:'propos-deplaces',description:'VIOLATION DU DROIT AU REPOS PENDANT ARRÊT MALADIE — Pendant mon arrêt maladie (6-8 mai), Mme Mariam Nimaga (cogérante de Starsnett, épouse du gérant) m\'a appelée à deux reprises consécutives à 10:21 et 10:23, puis M. Nimaga à 13:20. Mariam Nimaga m\'avait déjà appelée jeudi et vendredi pendant mon absence parce qu\'elle se retrouvait à mon poste sans savoir s\'y retrouver. Cette dépendance opérationnelle des deux cogérants à mes compétences est révélatrice : (1) violation manifeste du droit au repos du salarié en arrêt maladie ; (2) preuve que mon poste réel dépasse largement la classification EA2 (puisque même une cogérante ne maîtrise pas mes missions).',temoins:'',preuves:'Journal d\'appels du téléphone — 3 appels reçus le 7 mai pendant arrêt maladie ; appels antérieurs de Mariam les jeudi 30/04 et vendredi 01/05'},
+  {datetime:'2026-05-11T12:32',categorie:'sollicitation-pause',description:'HARCÈLEMENT TÉLÉPHONIQUE — Aujourd\'hui M. Nimaga a tenté de me joindre 12 fois sur mon portable entre 12:32 et 14:52 : 9 appels en rafale à 12:32 (alors que j\'étais déjà en ligne sur le téléphone fixe du bureau à gérer un appel professionnel), puis 2 appels à 13:50, puis 1 appel à 14:52. S\'ajoutent 4 sollicitations WhatsApp pendant ma pause (13:20, 13:34, 13:46, 13:54). Les 9 appels en rafale alors que je suis déjà au téléphone professionnel constituent un harcèlement managérial caractérisé. Mon journal d\'appels prouve ma présence active au bureau (preuve indirecte horodatée).',temoins:'',preuves:'Journal d\'appels du téléphone — 11 appels entrants de M. Nimaga sur la plage 12:32-14:52 le 11/05/2026 ; capture WhatsApp 4 sollicitations pendant pause'},
+  {datetime:'2025-09-01T10:00',categorie:'missions-hors-fiche',description:'DÉTOURNEMENT DU CONTRAT DE TRAVAIL — Tâches privées au profit de la famille Nimaga effectuées sur temps de travail Starsnett. Périmètre régulier identifié : (1) gestion des documents scolaires des enfants Nimaga ; (2) dossier MDPH complet pour Oumar (handicap), incluant l\'envoi des documents au Conseil départemental du Val-de-Marne et l\'organisation du transport scolaire entre la maison et le collège ; (3) accompagnement physique d\'un enfant Nimaga à un rendez-vous d\'orthodontie pendant mes heures de travail ; (4) prise de rendez-vous médicaux personnels pour M. Nimaga (récurrent). Mon contrat de travail (article 3) ne prévoit aucune mission de cette nature. Je suis salariée de Starsnett Services SARL, pas assistante personnelle de la famille Nimaga. Ces heures sont rémunérées par la société alors qu\'elles bénéficient personnellement aux gérants — qualification possible d\'abus de biens sociaux pour les gérants (art. L.241-3 Code de commerce, indépendant de ma responsabilité de salariée).',temoins:'',preuves:'Documents MDPH envoyés depuis ma boîte mail Starsnett ; SMS/mails de prise de RDV médicaux pour M. Nimaga ; date approximative — à compléter avec dates précises si disponibles'},
+  {datetime:'2025-06-01T10:00',categorie:'autre',description:'INSTRUCTION DE FAIRE DES FACTURES FICTIVES — À une période non précisément datée du début de mon contrat, M. Nimaga m\'a demandé à plusieurs reprises d\'établir des factures fictives (fausses factures). J\'en ai exécuté 1 ou 2 sous instruction, en début de relation contractuelle, puis j\'ai REFUSÉ DE CONTINUER. M. Nimaga me demandait notamment de faire cela le samedi, en dehors de mes horaires de travail contractuels, ce qui m\'a poussée à arrêter définitivement. À NOTER POUR MOI-MÊME : ce point doit être abordé en priorité avec un avocat (pénaliste ou droit du travail spécialisé) pour évaluer ma situation au regard de la loi Sapin II (statut potentiel de lanceur d\'alerte avec protection légale et atténuation/exemption de responsabilité). NE PAS COMMUNIQUER cet élément à des tiers avant consultation juridique.',temoins:'',preuves:'À documenter avec consultation juridique — éventuellement échanges WhatsApp/mails d\'instructions si conservés'}
 ];
 
 const FERIES = ['2025-04-21','2025-05-01','2025-05-08','2025-05-29','2025-06-09','2025-07-14','2025-08-15','2025-11-01','2025-11-11','2025-12-25','2025-12-26','2026-01-01','2026-04-06','2026-05-01','2026-05-08','2026-05-14','2026-05-25','2026-07-14','2026-08-15','2026-11-01','2026-11-11','2026-12-25'];
@@ -358,7 +362,11 @@ function seedFromBase(){
   const today = new Date();
   const cur = new Date(start);
   while(cur<=today){
-    const key = cur.toISOString().slice(0,10);
+    // Utiliser date locale (pas UTC) pour éviter décalage de fuseau horaire
+    const yyyy = cur.getFullYear();
+    const mm = String(cur.getMonth()+1).padStart(2,'0');
+    const dd = String(cur.getDate()).padStart(2,'0');
+    const key = yyyy+'-'+mm+'-'+dd;
     const dow = cur.getDay();
     if(dow!==0 && dow!==6){
       if(FERIES.includes(key)){
@@ -410,7 +418,7 @@ function reseedBase(){
 let data = loadData();
 
 // ============== HELPERS ==============
-function todayKey(){ return new Date().toISOString().slice(0,10); }
+function todayKey(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function nowTime(){ return new Date().toTimeString().slice(0,5); }
 function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}); }
 function fmtDateLong(iso){ const d=new Date(iso); return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }
@@ -530,7 +538,17 @@ function saveDay(){
     const pd = document.getElementById('d-pause-debut').value;
     const pf = document.getElementById('d-pause-fin').value;
     const solRaw = document.getElementById('d-sollicitations').value.trim();
-    const sols = solRaw ? solRaw.split(',').map(s=>s.trim()).filter(Boolean) : [];
+    // Parser flexible : extrait toutes les heures au format HH:MM, HHhMM, HH H MM, etc.
+    const sols = [];
+    if(solRaw){
+      const regex = /(\d{1,2})\s*[h:H]\s*(\d{2})/g;
+      let m;
+      while((m = regex.exec(solRaw)) !== null){
+        const h = String(parseInt(m[1],10)).padStart(2,'0');
+        const min = m[2];
+        sols.push(h+':'+min);
+      }
+    }
     data.pointages[date] = {type:'travail',arrivee:arrivee||undefined,depart:depart||undefined,'pause-debut':pd||undefined,'pause-fin':pf||undefined,sollicitations:sols,note:note||undefined};
   } else {
     data.pointages[date] = {type,sollicitations:[],note:note||undefined};
@@ -809,8 +827,12 @@ function renderDossier(){
     {titre:'Acompte 1000 € en 4×250 €',gravite:'faible',texte:'Acompte soldé. MAIS 250 €/mois = >15% du net, alors que art. L.3251-3 plafonne à 10% (~160 € max). Échéancier illégal en taux.',montant:0},
     {titre:'Écart 39 € virement avril 2026 + engagement écrit non tenu',gravite:'haute',texte:'Bulletin avril 2026 : 1 545,10 € net. Virement reçu : 1 506,10 €. Écart 39 € non documenté (violation art. R.3243-1). Confidence Florent : Nimaga a hésité à prélever un 5ème acompte indu, puis a viré moins sans justification. Le 2 mai à 08:53, M. Nimaga reconnaît par WhatsApp l\'écart et s\'engage par écrit à rectifier : "Ok ok pas de problème ont feras la rectification". Au 11 mai (9 jours après), aucune régularisation. ENGAGEMENT ÉCRIT NON TENU — preuve solide de mauvaise foi.',montant:39},
     {titre:'Surveillance par caméra non déclarée',gravite:'moyenne',texte:'Caméra braquée sur poste de la salariée et de la comptable. Notifications sur téléphone du gérant à chaque passage. Aucune information préalable RGPD/CNIL. Violation art. L.1222-4 et RGPD art. 13. À l\'inverse, preuve directe des heures réelles.',montant:0},
+    {titre:'Détournement du contrat de travail — missions privées familiales',gravite:'haute',texte:'Tâches privées au profit de la famille Nimaga effectuées sur temps de travail Starsnett : gestion documents scolaires des enfants ; dossier MDPH complet pour Oumar (handicap) avec Conseil départemental Val-de-Marne ; accompagnement physique d\'un enfant à l\'orthodontie ; prises de RDV médicaux personnels pour M. Nimaga. Aucune de ces missions ne figure dans le contrat. Heures rémunérées par la société alors qu\'elles bénéficient aux gérants à titre personnel. Qualification possible d\'abus de biens sociaux (art. L.241-3 Code de commerce) — concerne les gérants, pas la salariée.',montant:0},
+    {titre:'Harcèlement téléphonique pendant temps de travail',gravite:'haute',texte:'Le 11/05/2026 : M. Nimaga m\'a appelée 11 fois entre 12:32 et 14:52, dont 9 appels en rafale à 12:32 alors que j\'étais déjà en ligne sur le fixe à gérer un appel professionnel. + 4 sollicitations WhatsApp pendant pause. Comportement caractérisant un harcèlement managérial (art. L.1152-1) et une violation du droit à la déconnexion (art. L.2242-17). Journal d\'appels = preuve horodatée non falsifiable.',montant:0},
+    {titre:'Violation droit au repos pendant arrêt maladie',gravite:'haute',texte:'Pendant arrêt maladie 6-8 mai 2026 : 3 appels reçus le 7 mai (Mariam Nimaga cogérante à 10:21 et 10:23, M. Nimaga à 13:20). Antécédent : Mariam m\'avait déjà appelée pour raisons professionnelles jeudi 30/04 et vendredi 01/05 pendant ma précédente absence. Violation caractérisée du droit au repos (jurisprudence constante Cass. Soc.). Démontre aussi indirectement que mes missions dépassent EA2 (cogérante incapable de me remplacer).',montant:0},
+    {titre:'⚠ SUJET SENSIBLE — Instruction de factures fictives',gravite:'haute',texte:'M. Nimaga m\'a demandé à plusieurs reprises d\'établir des factures fictives. J\'en ai exécuté 1 ou 2 sous instruction en début de contrat puis j\'ai REFUSÉ DE CONTINUER (demandes faites le samedi hors horaires contractuels). À ABORDER EN PRIORITÉ avec un avocat (pénaliste ou droit du travail spécialisé) : évaluer ma situation au regard de la loi Sapin II (statut potentiel de lanceur d\'alerte avec protection légale et atténuation de responsabilité). NE PAS COMMUNIQUER à des tiers avant consultation juridique. Conseil pratique : prendre RDV avec un avocat via la Maison de la Justice et du Droit ou permanence Mairie de Maisons-Alfort.',montant:0},
     {titre:'Lieu de travail réel ≠ contrat',gravite:'faible',texte:'Contrat : 4 rue du Sentier des Attripes, Créteil. Réel : 83 rue de Reuilly, Paris 12e. Avenant manquant.',montant:0},
-    {titre:'Prime annuelle CCN non versée',gravite:'moyenne',texte:'Article 3.7.1 CCN Propreté : prime annuelle due à 1 an d\'ancienneté (mars 2026). Aucune ligne sur bulletins mars/avril 2026.',montant:150},
+    {titre:'Prime annuelle CCN — vigilance novembre 2026',gravite:'a-clarifier',texte:'Annexe I.3 CCN Propreté (accord du 3 mars 2015) : prime annuelle obligatoire pour tous les salariés ayant 1 an d\'ancienneté dans la branche, versée AVEC LA PAIE DE NOVEMBRE. Vous remplissez la condition depuis le 3 mars 2026. Calcul : 18,6405 % de la rémunération minimale ASP A (12,38 €/h × 151,67 h = 1 877,68 € brut/mois), soit ~350,03 € brut. À VÉRIFIER sur le bulletin de novembre 2026 — si absente, c\'est une anomalie à réclamer. Ce n\'est PAS encore une anomalie active à ce jour.',montant:350},
     {titre:'Sanctions pécuniaires déguisées (récidive)',gravite:'haute',texte:'M. Nimaga transforme systématiquement toute absence en "congé sans solde" sans accord écrit du salarié. 1ère occurrence : 24/04/2026 (-93,35 €). 2ème occurrence : 06/05/2026 (incapacité physique de marcher, j\'ai proposé un Uber remboursable, refus, puis qualification en sans solde via Florent). Comportement systématique et délibéré. Violation art. L.1331-2 (sanction pécuniaire interdite) ; modification unilatérale du contrat ; abus de pouvoir de direction. La répétition aggrave la qualification.',montant:200}
   ];
   const colors = {haute:'var(--alert)',moyenne:'var(--warn)',faible:'var(--ink-mute)','a-clarifier':'var(--warn)'};
@@ -831,7 +853,7 @@ function renderDossier(){
   const rappelHsup = stats.hsup * tauxMaj;
   const indemniteTT = 2030.86 * 6;
   const diffClassif = 250 * 14;
-  const totalPrejudice = rappelHsup + indemniteTT + diffClassif + 30 + 150 + 39;
+  const totalPrejudice = rappelHsup + indemniteTT + diffClassif + 30 + 350 + 39;
 
   document.getElementById('dossierChiffrage').innerHTML =
     '<div class="card">'+
@@ -851,7 +873,7 @@ function renderDossier(){
       '<div class="bulletin-row"><span class="bulletin-label">Indemnité travail dissimulé (6 mois)</span><span class="bulletin-value warn">'+indemniteTT.toFixed(0)+' €</span></div>'+
       '<div class="bulletin-row"><span class="bulletin-label">Différentiel sous-classification</span><span class="bulletin-value warn">~'+diffClassif.toFixed(0)+' € brut</span></div>'+
       '<div class="bulletin-row"><span class="bulletin-label">Mutuelle non versée mars 2025</span><span class="bulletin-value warn">30 €</span></div>'+
-      '<div class="bulletin-row"><span class="bulletin-label">Prime annuelle CCN</span><span class="bulletin-value warn">~150 €</span></div>'+
+      '<div class="bulletin-row"><span class="bulletin-label">Prime annuelle CCN (novembre 2026)</span><span class="bulletin-value warn">~350 €</span></div>'+
       '<div class="bulletin-row"><span class="bulletin-label">Écart virement avril 2026</span><span class="bulletin-value warn">39 €</span></div>'+
       '<div class="bulletin-row" style="border-top:1px solid var(--ink);padding-top:8px;margin-top:4px;"><span class="bulletin-label" style="font-weight:600;color:var(--ink);">Total estimé</span><span class="bulletin-value warn" style="font-size:15px;">~'+totalPrejudice.toFixed(0)+' €</span></div>'+
     '</div>'+
